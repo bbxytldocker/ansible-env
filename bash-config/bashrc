@@ -1,0 +1,50 @@
+#!/bin/bash
+# ====================================================
+#   Copyright (C)2017 All rights reserved.
+#
+#   Author        : bbxytl
+#   Email         : bbxytl@gmail.com
+#   File Name     : bashrc
+#   Last Modified : 2017-12-14 11:58
+#   Describe      :
+#
+#   Log           :
+#
+# ====================================================
+
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+export TERM=xterm-256color
+
+if [ -f ~/.bash_env.sh ];then
+	source ~/.bash_env.sh
+fi
+
+if [ -f ~/.bash_alias.sh ]; then
+	source ~/.bash_alias.sh
+fi
+
+if [ -f ~/.bashrc.local ];then
+	source ~/.bashrc.local
+fi
+
+alias l="ls -al"
+alias ll="ls -l"
+alias ..="cd .."
+alias vim="vi"
+alias cdu="cd -"
+PS1='\[\e[1;35m\][\[\e[1;33m\]\u@\h \[\e[1;31m\]\w\[\e[1;35m\]]\[\e[1;36m\]\$ \[\e[0m\]'
+
+
+# tmux
+alias tmat="tmux attach -t"
+alias tmnn="tmux new -s"
+alias tmls="tmux ls"
+alias tmrn="tmux rename-window"
+alias tmux='tmux -2'
+
+
