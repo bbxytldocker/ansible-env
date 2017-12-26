@@ -3,6 +3,6 @@
   remote_user: ansible
   tasks:
     - name: 创建文件 uname
-        shell: "filename=`uname -n` && touch /home/ansible/$filename.txt"
+      shell: "filename=`uname -n` && touch /home/ansible/$filename.txt"
     - name: 创建目录 test
-        shell: "mkdir -p ~/test"
+      shell: "mkdir -p ~/test"

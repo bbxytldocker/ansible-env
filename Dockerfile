@@ -95,10 +95,13 @@ RUN mkdir -p $UHOME/shell/env \
 	&& cd $UHOME/shell/env \
 	&& virtualenv ansible
 
-COPY ./bash-config/bashrc $UHOME/.bashrc
-COPY ./bash-config/tmux.conf $UHOME/.tmux.conf
+COPY ./bash-config/bashrc /tmp/.bashrc
+COPY ./bash-config/tmux.conf /tmp/.tmux.conf
 
-RUN mkdir -p $UHOME/.ssh  \
+RUN cd $UHOME \
+	&& cp /tmp/.bashrc ./ \
+	&& cp /tmp/.tmux.conf ./ \
+	&& mkdir -p $UHOME/.ssh  \
 	&& chmod 700 $UHOME/.ssh \
 	&& cd $UHOME/.ssh \
 	&& ssh-keygen -t rsa -f ./id_rsa \
@@ -109,11 +112,12 @@ RUN mkdir -p $UHOME/.ssh  \
 
 # ansible 简单的测试，要开三个容器，将容器 ip 添加进 hosts 文件里,
 # 测试运行使用命令 `sh ansible-test.sh`
-RUN mkdir -p $UHOME/ansible-test
-COPY ./data/ansible.cfg $UHOME/ansible-test/
-COPY ./data/hosts $UHOME/ansible-test/
-COPY ./data/test.yml $UHOME/ansible-test/
-COPY ./data/ansible-test.sh $UHOME/ansible-test/
+RUN mkdir -p /tmp/ansible-test
+COPY ./data/ansible.cfg /tmp/ansible-test/
+COPY ./data/hosts /tmp/ansible-test/
+COPY ./data/test.yml /tmp/ansible-test/
+COPY ./data/ansible-test.sh /tmp/ansible-test/
+RUN cp -rf /tmp/ansible-test $UHOME/
 
 USER root
 COPY ./start-run /usr/local/bin/start-run
