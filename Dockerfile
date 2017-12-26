@@ -107,6 +107,14 @@ RUN mkdir -p $UHOME/.ssh  \
 	&& cat id_rsa.pub > authorized_keys \
 	&& chmod 600 authorized_keys
 
+# ansible 简单的测试，要开三个容器，将容器 ip 添加进 hosts 文件里,
+# 测试运行使用命令 `sh ansible-test.sh`
+RUN mkdir -p $UHOME/ansible-test
+COPY ./data/ansible.cfg $UHOME/ansible-test/
+COPY ./data/hosts $UHOME/ansible-test/
+COPY ./data/test.yml $UHOME/ansible-test/
+COPY ./data/ansible-test.sh $UHOME/ansible-test/
+
 USER root
 COPY ./start-run /usr/local/bin/start-run
 RUN chmod +x /usr/local/bin/start-run
